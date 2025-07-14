@@ -1,28 +1,44 @@
 import json
 
+
 def load_data(file_path):
     """Load JSON file"""
-    with open(file_path,"r") as handle:
+    with open(file_path,"r", encoding="utf=8") as handle:
         return json.load(handle)
 
 animals_data = load_data('animals_data.json')
 #print(animals_data)
-
-# Name: American Foxhound
-# Diet: Omnivore
-# Location: North-America
-# Type: Hound
+# print(f"Location: {", ".join(animal["locations"])}")    #split ist string → liste und join ist liste → string
 
 
 def show_info(animals_data):
 
+    output = ""
     for animal in animals_data:
-        print(f"Name: {animal.get("name")}")
-        print(f"Diet: {animal.get("characteristics").get("diet")}")
-        print(f"Location: {animal.get("locations")[0]}")
-        #print(f"Location: {", ".join(animal["locations"])}")    #split ist string → liste und join ist liste → string
-        print(f"Type: {animal.get("characteristics").get("type")}")
-        print()
+        print(animal)
+        output += f"Name: {animal.get("name")}\n"
+        output += f"Diet: {animal.get("characteristics").get("diet")}\n"
+        output += f"Location: {animal.get("locations")[0]}\n"
+        if animal.get("characteristics").get("type"):
+            output += f"Type: {animal.get("characteristics").get("type")}\n"
+        output += "\n"
+    return(output)
 
-show_info(animals_data)
+animal_info = show_info(animals_data)
 
+
+def load_html(file):
+    """Reading the content of the template"""
+    with open(file, "r", encoding="utf-8") as html:
+        return html.read()
+
+template_html = load_html("animals_template.html")
+final_html = template_html.replace("__REPLACE_ANIMALS_INFO__", animal_info)
+
+
+def write_html(file):
+    """Writing animal data to HTML file."""
+    with open("animals.html", "w", encoding="utf-8") as html:
+        html.write(final_html)
+
+write_html("animals.html")
