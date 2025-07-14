@@ -1,9 +1,8 @@
 import json
 
-
 def load_data(file_path):
     """Load JSON file"""
-    with open(file_path,"r", encoding="utf=8") as handle:
+    with open(file_path,"r", encoding="utf-8") as handle:
         return json.load(handle)
 
 animals_data = load_data('animals_data.json')
@@ -13,16 +12,17 @@ animals_data = load_data('animals_data.json')
 
 def show_info(animals_data):
 
-    output = ""
+    output = ""  # define an empty string
     for animal in animals_data:
-        print(animal)
-        output += f"Name: {animal.get("name")}\n"
-        output += f"Diet: {animal.get("characteristics").get("diet")}\n"
-        output += f"Location: {animal.get("locations")[0]}\n"
-        if animal.get("characteristics").get("type"):
-            output += f"Type: {animal.get("characteristics").get("type")}\n"
+        output += "<li class='cards__item'>"
+        output += f"Name: {animal.get('name')}<br/>\n"
+        output += f"Diet: {animal.get('characteristics').get('diet')}<br/>\n"
+        output += f"Location: {animal.get('locations')[0]}<br/>\n"
+        #if animal.get("characteristics").get('type'):
+        output += f"Type: {animal.get('characteristics').get('type', '--')}<br/>\n"
         output += "\n"
-    return(output)
+        output += '</li>'
+    return output
 
 animal_info = show_info(animals_data)
 
