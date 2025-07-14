@@ -15,11 +15,11 @@ def show_info(animals_data):
     output = ""  # define an empty string
     for animal in animals_data:
         output += "<li class='cards__item'>"
-        output += f"Name: {animal.get('name')}<br/>\n"
-        output += f"Diet: {animal.get('characteristics').get('diet')}<br/>\n"
-        output += f"Location: {animal.get('locations')[0]}<br/>\n"
-        #if animal.get("characteristics").get('type'):
-        output += f"Type: {animal.get('characteristics').get('type', '--')}<br/>\n"
+        output += f"<div class='card__title'>{animal.get('name')}<br/>\n</div>"
+        output += "<p class='card__text'>"
+        output += f"<strong>Diet:</strong> {animal.get('characteristics').get('diet')}<br/>\n"
+        output += f"<strong>Location:</strong> {animal.get('locations')[0]}<br/>\n"
+        output += f"<strong>Type:</strong> {animal.get('characteristics').get('type', '--')}<br/>\n"
         output += "\n"
         output += '</li>'
     return output
